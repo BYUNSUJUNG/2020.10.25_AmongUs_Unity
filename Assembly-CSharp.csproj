@@ -64,6 +64,7 @@
   <ItemGroup>
     <Compile Include="Assets\Scripts\ChangingHat.cs" />
     <Compile Include="Assets\Scripts\ChangingPet.cs" />
+    <Compile Include="Assets\Scripts\ChangingSkin.cs" />
     <Reference Include="UnityEngine">
       <HintPath>C:/Program Files/Unity/Editor/Data/Managed/UnityEngine/UnityEngine.dll</HintPath>
     </Reference>

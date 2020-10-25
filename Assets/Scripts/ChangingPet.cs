@@ -29,60 +29,58 @@ public class ChangingPet : MonoBehaviour
 
     }
     
-    public void pet01Click() { hatMethod(1); }
-    public void pet02Click() { hatMethod(2); }
-    public void pet03Click() { hatMethod(3); }
-    public void pet04Click() { hatMethod(4); }
-    public void pet05Click() { hatMethod(5); }
-    public void pet06Click() { hatMethod(6); }
-    public void pet07Click() { hatMethod(7); }
-    public void pet08Click() { hatMethod(8); }
-    public void pet09Click() { hatMethod(9); }
-    public void pet10Click() { hatMethod(10); }
-    public void pet11Click() { hatMethod(11); }
-    public void pet12Click() { hatMethod(12); }
-    public void pet13Click() { hatMethod(13); }
+    public void pet01Click() { petMethod(1); }
+    public void pet02Click() { petMethod(2); }
+    public void pet03Click() { petMethod(3); }
+    public void pet04Click() { petMethod(4); }
+    public void pet05Click() { petMethod(5); }
+    public void pet06Click() { petMethod(6); }
+    public void pet07Click() { petMethod(7); }
+    public void pet08Click() { petMethod(8); }
+    public void pet09Click() { petMethod(9); }
+    public void pet10Click() { petMethod(10); }
+    public void pet11Click() { petMethod(11); }
+    public void pet12Click() { petMethod(12); }
+    public void pet13Click() { petMethod(13); }
 
 
-
-    // 모자 처리
-    public void hatMethod(int iWearingHatNumCheck)
+    public void petMethod(int iWearingPetNumCheck)
     {
-        // 머리을 이미 쓰고 있음
+        // 무언가 착용 O 
         if (wearingBool.Equals("true"))
         {
-            // 01머리을 이미 쓰고 있음 -> 벗음
-            if (iWearingPetNum == iWearingHatNumCheck)
+            // 해당 번호 착용중 -> 벗음
+            if (iWearingPetNum == iWearingPetNumCheck)
             {
                 wearingBool = "false";
-                pet[iWearingHatNumCheck-1].SetActive(false);
+                pet[iWearingPetNumCheck - 1].SetActive(false);
             }
             else
-            {   // 다른 머리를 쓰고 있음 -> 해당 머리를 벗기고 01머리을 씀
-                // 그대로 옷입고 있기에 wearing(true/false)값은 변경하지 않음
+            {   // 다른 것 착용중 -> 벗음 -> 해당 번호 착용
+                // 그대로 착용중이기에 wearing(true/false)값은 변경하지 않음
                 pet[iWearingPetNum - 1].SetActive(false);
-                iWearingPetNum = iWearingHatNumCheck;
-                pet[iWearingHatNumCheck-1].SetActive(true);
+                iWearingPetNum = iWearingPetNumCheck;
+                pet[iWearingPetNumCheck - 1].SetActive(true);
             }
 
         }
         else
-        { // 머리을 이미 쓰고 있음 -> 01머리를 씀
-            iWearingPetNum = iWearingHatNumCheck;
+        { // 착용 X -> 01 착용
+            iWearingPetNum = iWearingPetNumCheck;
             wearingBool = "true";
-            pet[iWearingHatNumCheck-1].SetActive(true);
+            pet[iWearingPetNumCheck - 1].SetActive(true);
         }
 
         sWearingPetNum = iWearingPetNum.ToString();
         Dictionary<string, string> DataDict = new Dictionary<string, string>
         {
             {"wearing", wearingBool},
-            {"wearingHairNum", sWearingPetNum}
+            {"wearingPetNum", sWearingPetNum}
         };
         string json = JsonConvert.SerializeObject(DataDict, Formatting.Indented);
 
-        File.WriteAllText(Application.dataPath + "/DB/HairData.json", json);
-        Debug.Log("[wearing]: " + wearingBool + "[wearingHairNum]" + iWearingPetNum);
+        File.WriteAllText(Application.dataPath + "/DB/PetData.json", json);
+        Debug.Log("[wearing]: " + wearingBool + "[wearingPetNum]" + iWearingPetNum);
     } // end
     
 }

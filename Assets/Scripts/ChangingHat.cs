@@ -41,24 +41,22 @@ public class ChangingHat : MonoBehaviour
     public void hat10Click() { hatMethod(10); }
     public void hat11Click() { hatMethod(11); }
     public void hat12Click() { hatMethod(12); }
-
     
 
-    // 모자 처리
     public void hatMethod(int iWearingHatNumCheck)
     {
-        // 머리을 이미 쓰고 있음
+        // 무언가 착용 O 
         if (wearingBool.Equals("true"))
         {
-            // 01머리을 이미 쓰고 있음 -> 벗음
+            // 해당 번호 착용중 -> 벗음
             if (iWearingHatNum == iWearingHatNumCheck)
             {
                 wearingBool = "false";
                 hat[iWearingHatNumCheck-1].SetActive(false);
             }
             else
-            {   // 다른 머리를 쓰고 있음 -> 해당 머리를 벗기고 01머리을 씀
-                // 그대로 옷입고 있기에 wearing(true/false)값은 변경하지 않음
+            {    // 다른 것 착용중 -> 벗음 -> 해당 번호 착용
+                // 그대로 착용중이기에 wearing(true/false)값은 변경하지 않음
                 hat[iWearingHatNum - 1].SetActive(false);
                 iWearingHatNum = iWearingHatNumCheck;
                 hat[iWearingHatNumCheck-1].SetActive(true);
@@ -66,7 +64,7 @@ public class ChangingHat : MonoBehaviour
 
         }
         else
-        { // 머리을 이미 쓰고 있음 -> 01머리를 씀
+        { // 착용 X -> 01 착용
             iWearingHatNum = iWearingHatNumCheck;
             wearingBool = "true";
             hat[iWearingHatNumCheck-1].SetActive(true);
@@ -76,12 +74,12 @@ public class ChangingHat : MonoBehaviour
         Dictionary<string, string> DataDict = new Dictionary<string, string>
         {
             {"wearing", wearingBool},
-            {"wearingHairNum", sWearingHatNum}
+            {"wearingHatNum", sWearingHatNum}
         };
         string json = JsonConvert.SerializeObject(DataDict, Formatting.Indented);
 
         File.WriteAllText(Application.dataPath + "/DB/HairData.json", json);
-        Debug.Log("[wearing]: " + wearingBool + "[wearingHairNum]" + iWearingHatNum);
+        Debug.Log("[wearing]: " + wearingBool + "[wearingHatNum]" + iWearingHatNum);
     } // end
     
 }
