@@ -12,9 +12,9 @@ public class ChangingHat : MonoBehaviour
 
     private string hatString; //파일의 모든 텍스트를 string 형태로 저장하기 위해
     private JsonData hatData; //string 형태의 데이터를 Json 형태로 변경하기 위해
-    private string wearingBool; // 옷 착용 여부
-    private int iWearingHatNum; // 입고 있는 옷 번호 // 배열값에 이용 // 데이터를 받을 때 사용
-    private string sWearingHatNum; // 입고 있는 옷 번호 // 데이터를 저장할 때 사용
+    private string wearingBool; // 착용 여부
+    private int iWearingHatNum; // 착용 번호 // 배열값에 이용 // 데이터를 받을 때 사용
+    private string sWearingHatNum; // 착용 번호 // 데이터를 저장할 때 사용
 
     private int iWearingHatNumCheck;
 
@@ -78,7 +78,7 @@ public class ChangingHat : MonoBehaviour
         };
         string json = JsonConvert.SerializeObject(DataDict, Formatting.Indented);
 
-        File.WriteAllText(Application.dataPath + "/DB/HairData.json", json);
+        File.WriteAllText(Application.dataPath + "/DB/HatData.json", json);
         Debug.Log("[wearing]: " + wearingBool + "[wearingHatNum]" + iWearingHatNum);
     } // end
     

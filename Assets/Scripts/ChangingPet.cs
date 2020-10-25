@@ -12,9 +12,9 @@ public class ChangingPet : MonoBehaviour
 
     private string petString; //파일의 모든 텍스트를 string 형태로 저장하기 위해
     private JsonData petData; //string 형태의 데이터를 Json 형태로 변경하기 위해
-    private string wearingBool; // 옷 착용 여부
-    private int iWearingPetNum; // 입고 있는 옷 번호 // 배열값에 이용 // 데이터를 받을 때 사용
-    private string sWearingPetNum; // 입고 있는 옷 번호 // 데이터를 저장할 때 사용
+    private string wearingBool; // 착용 여부
+    private int iWearingPetNum; // 착용 번호 // 배열값에 이용 // 데이터를 받을 때 사용
+    private string sWearingPetNum; // 착용 번호 // 데이터를 저장할 때 사용
 
     private int iWearingPetNumCheck;
 
