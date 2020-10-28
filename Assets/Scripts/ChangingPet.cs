@@ -1,31 +1,19 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using System.IO;
-using LitJson;
-using System; // Convert.ToInt32
-using Newtonsoft.Json; // JsonConvert, Formatting
 
 public class ChangingPet : MonoBehaviour
 {
     public GameObject[] pet = new GameObject[13];
 
-    private string petString; //파일의 모든 텍스트를 string 형태로 저장하기 위해
-    private JsonData petData; //string 형태의 데이터를 Json 형태로 변경하기 위해
     private string wearingBool; // 착용 여부
-    private int iWearingPetNum; // 착용 번호 // 배열값에 이용 // 데이터를 받을 때 사용
-    private string sWearingPetNum; // 착용 번호 // 데이터를 저장할 때 사용
-
-    private int iWearingPetNumCheck;
+    private int iWearingPetNum; // 착용 번호 
 
 
 
     void Start()
     {
-        petString = File.ReadAllText(Application.dataPath + "/DB/PetData.json");
-        petData = JsonMapper.ToObject(petString);
-        wearingBool = petData["wearing"].ToString();
-        iWearingPetNum = Convert.ToInt32(petData["wearingPetNum"].ToString());
+        wearingBool = "false";
+        iWearingPetNum = 0;
 
     }
     
@@ -49,38 +37,37 @@ public class ChangingPet : MonoBehaviour
         // 무언가 착용 O 
         if (wearingBool.Equals("true"))
         {
+
             // 해당 번호 착용중 -> 벗음
             if (iWearingPetNum == iWearingPetNumCheck)
             {
+                Debug.Log(iWearingPetNum + "벗음");
                 wearingBool = "false";
+                iWearingPetNum = 0;
                 pet[iWearingPetNumCheck - 1].SetActive(false);
+
             }
             else
-            {   // 다른 것 착용중 -> 벗음 -> 해당 번호 착용
-                // 그대로 착용중이기에 wearing(true/false)값은 변경하지 않음
+            {    // 다른 것 착용중 -> 벗음 -> 해당 번호 착용
+                 // 그대로 착용중이기에 wearing(true/false)값은 변경하지 않음
+
                 pet[iWearingPetNum - 1].SetActive(false);
-                iWearingPetNum = iWearingPetNumCheck;
                 pet[iWearingPetNumCheck - 1].SetActive(true);
+                Debug.Log(iWearingPetNum + "벗고" + iWearingPetNumCheck + "착용");
+                iWearingPetNum = iWearingPetNumCheck;
             }
 
         }
+
         else
-        { // 착용 X -> 01 착용
-            iWearingPetNum = iWearingPetNumCheck;
+        { // 착용 X ->  착용
+            Debug.Log(iWearingPetNumCheck + "착용");
             wearingBool = "true";
+            iWearingPetNum = iWearingPetNumCheck;
             pet[iWearingPetNumCheck - 1].SetActive(true);
+
         }
 
-        sWearingPetNum = iWearingPetNum.ToString();
-        Dictionary<string, string> DataDict = new Dictionary<string, string>
-        {
-            {"wearing", wearingBool},
-            {"wearingPetNum", sWearingPetNum}
-        };
-        string json = JsonConvert.SerializeObject(DataDict, Formatting.Indented);
-
-        File.WriteAllText(Application.dataPath + "/DB/PetData.json", json);
-        Debug.Log("[wearing]: " + wearingBool + "[wearingPetNum]" + iWearingPetNum);
     } // end
-    
+
 }
